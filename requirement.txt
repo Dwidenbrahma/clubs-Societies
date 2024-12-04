@@ -1,0 +1,6 @@
+express
+body-parser
+mysql2
+multer
+express-session
+ejs
