@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql2");
 const multer = require("multer");
 const session = require("express-session");
+require("dotenv").config();
 
 const app = express();
 
@@ -29,10 +30,10 @@ app.use((req, res, next) => {
 
 //Database connection
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "PROJECT",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DATABASE,
 });
 
 //Establishing connection
@@ -43,7 +44,7 @@ con.connect(function (err) {
 
 //====================================================
 //defining the port number
-const port = 4000;
+const PORT = 4000 || process.env.PORT;
 app.use(express.static("public"));
 
 //====================================================
@@ -396,7 +397,7 @@ app.post("/admin/dashboard/:id/delete", (req, res) => {
 //==================================================================
 
 //listening port
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("Go to live ");
   console.log("http://localhost:4000");
 });
